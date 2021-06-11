@@ -15,16 +15,15 @@
  */
 package com.luo.ibatis.type.usesjava8;
 
-import org.apache.ibatis.executor.result.ResultMapException;
-import org.apache.ibatis.type.BaseTypeHandlerTest;
-import org.apache.ibatis.type.MonthTypeHandler;
-import org.apache.ibatis.type.TypeHandler;
+import com.luo.ibatis.executor.result.ResultMapException;
+import com.luo.ibatis.type.BaseTypeHandlerTest;
+import com.luo.ibatis.type.MonthTypeHandler;
+import com.luo.ibatis.type.TypeHandler;
 import org.junit.Test;
 
 import java.time.Month;
 
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 

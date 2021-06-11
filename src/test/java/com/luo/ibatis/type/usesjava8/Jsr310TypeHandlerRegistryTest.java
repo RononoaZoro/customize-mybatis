@@ -15,12 +15,15 @@
  */
 package com.luo.ibatis.type.usesjava8;
 
-import org.apache.ibatis.type.*;
+import com.luo.ibatis.type.*;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.time.*;
 import java.time.chrono.JapaneseDate;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
 
 /**
  * @author Kazuki Shimizu

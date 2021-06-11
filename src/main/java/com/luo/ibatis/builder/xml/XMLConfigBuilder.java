@@ -1,7 +1,9 @@
 package com.luo.ibatis.builder.xml;
 
 import com.luo.ibatis.builder.BaseBuilder;
+import com.luo.ibatis.builder.BuilderException;
 import com.luo.ibatis.executor.ErrorContext;
+import com.luo.ibatis.parsing.XNode;
 import com.luo.ibatis.parsing.XPathParser;
 import com.luo.ibatis.reflection.DefaultReflectorFactory;
 import com.luo.ibatis.reflection.ReflectorFactory;
@@ -56,4 +58,39 @@ public class XMLConfigBuilder extends BaseBuilder {
         this.environment = environment;
         this.parser = parser;
     }
+
+    public Configuration parse() {
+        // 防止parse（）方法被同一个实例多次调用
+        if (parsed) {
+            throw new BuilderException("Each XMLConfigBuilder can only be used once.");
+        }
+        parsed = true;
+        // 调用XPathParser.evalNode（）方法，创建表示configuration节点的XNode对象。
+        // 调用parseConfiguration（）方法对XNode进行处理
+        parseConfiguration(parser.evalNode("/configuration"));
+        return configuration;
+    }
+
+    private void parseConfiguration(XNode root) {
+        try {
+            //issue #117 read properties first
+//            propertiesElement(root.evalNode("properties"));
+//            Properties settings = settingsAsProperties(root.evalNode("settings"));
+//            loadCustomVfs(settings);
+//            typeAliasesElement(root.evalNode("typeAliases"));
+//            pluginElement(root.evalNode("plugins"));
+//            objectFactoryElement(root.evalNode("objectFactory"));
+//            objectWrapperFactoryElement(root.evalNode("objectWrapperFactory"));
+//            reflectorFactoryElement(root.evalNode("reflectorFactory"));
+//            settingsElement(settings);
+//            // read it after objectFactory and objectWrapperFactory issue #631
+//            environmentsElement(root.evalNode("environments"));
+//            databaseIdProviderElement(root.evalNode("databaseIdProvider"));
+//            typeHandlerElement(root.evalNode("typeHandlers"));
+//            mapperElement(root.evalNode("mappers"));
+        } catch (Exception e) {
+            throw new BuilderException("Error parsing SQL Mapper Configuration. Cause: " + e, e);
+        }
+    }
+
 }

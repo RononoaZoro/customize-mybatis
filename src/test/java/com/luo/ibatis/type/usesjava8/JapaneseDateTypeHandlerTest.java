@@ -15,15 +15,16 @@
  */
 package com.luo.ibatis.type.usesjava8;
 
-import org.apache.ibatis.type.BaseTypeHandlerTest;
-import org.apache.ibatis.type.JapaneseDateTypeHandler;
-import org.apache.ibatis.type.TypeHandler;
+import com.luo.ibatis.type.BaseTypeHandlerTest;
+import com.luo.ibatis.type.JapaneseDateTypeHandler;
+import com.luo.ibatis.type.TypeHandler;
 import org.junit.Test;
 
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.chrono.JapaneseDate;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.*;
 

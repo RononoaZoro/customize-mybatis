@@ -28,9 +28,9 @@ public class TypeAliasRegistryTest {
   public void shouldRegisterAndResolveTypeAlias() {
     TypeAliasRegistry typeAliasRegistry = new TypeAliasRegistry();
 
-    typeAliasRegistry.registerAlias("rich", "org.apache.ibatis.domain.misc.RichType");
+    typeAliasRegistry.registerAlias("rich", "com.luo.ibatis.domain.misc.RichType");
 
-    assertEquals("org.apache.ibatis.domain.misc.RichType", typeAliasRegistry.resolveAlias("rich").getName());
+    assertEquals("com.luo.ibatis.domain.misc.RichType", typeAliasRegistry.resolveAlias("rich").getName());
   }
 
   @Test

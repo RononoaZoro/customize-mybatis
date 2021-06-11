@@ -18,6 +18,7 @@ package com.luo.ibatis.builder;
 
 import com.luo.ibatis.builder.xml.XMLConfigBuilder;
 import com.luo.ibatis.io.Resources;
+import com.luo.ibatis.session.Configuration;
 import org.junit.Test;
 
 import java.io.InputStream;
@@ -42,8 +43,8 @@ public class XmlConfigBuilderTest {
     String resource = "builder/MinimalMapperConfig.xml";
     try (InputStream inputStream = Resources.getResourceAsStream(resource)) {
       XMLConfigBuilder builder = new XMLConfigBuilder(inputStream);
-//      Configuration config = builder.parse();
-//      assertNotNull(config);
+      Configuration config = builder.parse();
+      assertNotNull(config);
 //      assertThat(config.getAutoMappingBehavior()).isEqualTo(AutoMappingBehavior.PARTIAL);
 //      assertThat(config.getAutoMappingUnknownColumnBehavior()).isEqualTo(AutoMappingUnknownColumnBehavior.NONE);
 //      assertThat(config.isCacheEnabled()).isTrue();

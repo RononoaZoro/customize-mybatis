@@ -15,7 +15,7 @@
  */
 package com.luo.ibatis.type;
 
-import org.apache.ibatis.executor.result.ResultMapException;
+import com.luo.ibatis.executor.result.ResultMapException;
 import org.junit.Assert;
 import org.junit.Test;
 

@@ -85,14 +85,14 @@ PARAMETER STYLE JAVA
 LANGUAGE JAVA
 READS SQL DATA
 DYNAMIC RESULT SETS 2
-EXTERNAL NAME 'org.apache.ibatis.databases.blog.StoredProcedures.selectTwoSetsOfTwoAuthors';
+EXTERNAL NAME 'com.luo.ibatis.databases.blog.StoredProcedures.selectTwoSetsOfTwoAuthors';
 
 CREATE PROCEDURE insertAuthor(DP1 INTEGER, DP2 VARCHAR(255), DP3 VARCHAR(255), DP4 VARCHAR(255))
 PARAMETER STYLE JAVA
 LANGUAGE JAVA
-EXTERNAL NAME 'org.apache.ibatis.databases.blog.StoredProcedures.insertAuthor';
+EXTERNAL NAME 'com.luo.ibatis.databases.blog.StoredProcedures.insertAuthor';
 
 CREATE PROCEDURE selectAuthorViaOutParams(ID INTEGER, OUT USERNAME VARCHAR(255), OUT PASSWORD VARCHAR(255), OUT EMAIL VARCHAR(255), OUT BIO VARCHAR(255))
 PARAMETER STYLE JAVA
 LANGUAGE JAVA
-EXTERNAL NAME 'org.apache.ibatis.databases.blog.StoredProcedures.selectAuthorViaOutParams';
+EXTERNAL NAME 'com.luo.ibatis.databases.blog.StoredProcedures.selectAuthorViaOutParams';

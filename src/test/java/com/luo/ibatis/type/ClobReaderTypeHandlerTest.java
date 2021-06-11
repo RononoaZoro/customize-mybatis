@@ -15,28 +15,13 @@
  */
 package com.luo.ibatis.type;
 
-import org.apache.ibatis.BaseDataTest;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.mapping.Environment;
-import org.apache.ibatis.session.Configuration;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-import org.apache.ibatis.transaction.TransactionFactory;
-import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockito.Mock;
 
-import javax.sql.DataSource;
-import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 import java.sql.Clob;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.verify;
@@ -52,23 +37,23 @@ public class ClobReaderTypeHandlerTest extends BaseTypeHandlerTest {
 
   private static final TypeHandler<Reader> TYPE_HANDLER = new ClobReaderTypeHandler();
 
-  private static SqlSessionFactory sqlSessionFactory;
+//  private static SqlSessionFactory sqlSessionFactory;
 
   @Mock
   protected Clob clob;
 
-  @BeforeClass
-  public static void setupSqlSessionFactory() throws Exception {
-    DataSource dataSource = BaseDataTest.createUnpooledDataSource("org/apache/ibatis/type/jdbc.properties");
-    TransactionFactory transactionFactory = new JdbcTransactionFactory();
-    Environment environment = new Environment("Production", transactionFactory, dataSource);
-    Configuration configuration = new Configuration(environment);
-    configuration.addMapper(Mapper.class);
-    sqlSessionFactory = new SqlSessionFactoryBuilder().build(configuration);
-
-    BaseDataTest.runScript(sqlSessionFactory.getConfiguration().getEnvironment().getDataSource(),
-            "org/apache/ibatis/type/ClobReaderTypeHandlerTest.sql");
-  }
+//  @BeforeClass
+//  public static void setupSqlSessionFactory() throws Exception {
+//    DataSource dataSource = BaseDataTest.createUnpooledDataSource("org/apache/ibatis/type/jdbc.properties");
+//    TransactionFactory transactionFactory = new JdbcTransactionFactory();
+//    Environment environment = new Environment("Production", transactionFactory, dataSource);
+//    Configuration configuration = new Configuration(environment);
+//    configuration.addMapper(Mapper.class);
+//    sqlSessionFactory = new SqlSessionFactoryBuilder().build(configuration);
+//
+//    BaseDataTest.runScript(sqlSessionFactory.getConfiguration().getEnvironment().getDataSource(),
+//            "org/apache/ibatis/type/ClobReaderTypeHandlerTest.sql");
+//  }
 
   @Override
   @Test
@@ -125,34 +110,34 @@ public class ClobReaderTypeHandlerTest extends BaseTypeHandlerTest {
   }
 
 
-  @Test
-  public void integrationTest() throws IOException {
-    try (SqlSession session = sqlSessionFactory.openSession()) {
-      Mapper mapper = session.getMapper(Mapper.class);
-      // insert (Reader -> Clob)
-      {
-        ClobContent clobContent = new ClobContent();
-        clobContent.setId(1);
-        clobContent.setContent(new StringReader("Hello"));
-        mapper.insert(clobContent);
-        session.commit();
-      }
-      // select (Clob -> Reader)
-      {
-        ClobContent clobContent = mapper.findOne(1);
-        assertThat(new BufferedReader(clobContent.getContent()).readLine()).isEqualTo("Hello");
-      }
-    }
-
-  }
-
-  interface Mapper {
-    @Select("SELECT ID, CONTENT FROM TEST_CLOB WHERE ID = #{id}")
-    ClobContent findOne(int id);
-
-    @Insert("INSERT INTO TEST_CLOB (ID, CONTENT) VALUES(#{id}, #{content})")
-    void insert(ClobContent blobContent);
-  }
+//  @Test
+//  public void integrationTest() throws IOException {
+//    try (SqlSession session = sqlSessionFactory.openSession()) {
+//      Mapper mapper = session.getMapper(Mapper.class);
+//      // insert (Reader -> Clob)
+//      {
+//        ClobContent clobContent = new ClobContent();
+//        clobContent.setId(1);
+//        clobContent.setContent(new StringReader("Hello"));
+//        mapper.insert(clobContent);
+//        session.commit();
+//      }
+//      // select (Clob -> Reader)
+//      {
+//        ClobContent clobContent = mapper.findOne(1);
+//        assertThat(new BufferedReader(clobContent.getContent()).readLine()).isEqualTo("Hello");
+//      }
+//    }
+//
+//  }
+//
+//  interface Mapper {
+//    @Select("SELECT ID, CONTENT FROM TEST_CLOB WHERE ID = #{id}")
+//    ClobContent findOne(int id);
+//
+//    @Insert("INSERT INTO TEST_CLOB (ID, CONTENT) VALUES(#{id}, #{content})")
+//    void insert(ClobContent blobContent);
+//  }
 
   static class ClobContent {
     private int id;

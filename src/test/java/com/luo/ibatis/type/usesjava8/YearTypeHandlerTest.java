@@ -15,13 +15,14 @@
  */
 package com.luo.ibatis.type.usesjava8;
 
-import org.apache.ibatis.type.BaseTypeHandlerTest;
-import org.apache.ibatis.type.TypeHandler;
-import org.apache.ibatis.type.YearTypeHandler;
+import com.luo.ibatis.type.BaseTypeHandlerTest;
+import com.luo.ibatis.type.TypeHandler;
+import com.luo.ibatis.type.YearTypeHandler;
 import org.junit.Test;
 
 import java.time.Year;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;

@@ -15,7 +15,6 @@
  */
 package com.luo.ibatis.type;
 
-import org.apache.ibatis.domain.misc.RichType;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -30,10 +29,10 @@ public class SimpleTypeRegistryTest {
     assertTrue(SimpleTypeRegistry.isSimpleType(String.class));
   }
 
-  @Test
-  public void shouldTestIfClassIsSimpleTypeAndReturnFalse() {
-    assertFalse(SimpleTypeRegistry.isSimpleType(RichType.class));
-  }
+//  @Test
+//  public void shouldTestIfClassIsSimpleTypeAndReturnFalse() {
+//    assertFalse(SimpleTypeRegistry.isSimpleType(RichType.class));
+//  }
 
   @Test
   public void shouldTestIfMapIsSimpleTypeAndReturnFalse() {
