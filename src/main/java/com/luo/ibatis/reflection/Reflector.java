@@ -12,7 +12,7 @@ import java.util.*;
 /**
  * @author ：archer
  * @date ：Created in 2021/6/11 17:43
- * @description：
+ * @description：反射执行器
  * @modified By：
  */
 public class Reflector {
@@ -100,7 +100,9 @@ public class Reflector {
                         winner = candidate;
                     }
                 } else if (candidateType.isAssignableFrom(winnerType)) {
-                    // OK getter type is descendant
+                    // OK getter type is descendant （后裔）
+
+                    //是否是自身或超类
                 } else if (winnerType.isAssignableFrom(candidateType)) {
                     winner = candidate;
                 } else {

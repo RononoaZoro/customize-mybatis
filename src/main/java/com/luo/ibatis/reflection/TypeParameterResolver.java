@@ -6,7 +6,7 @@ import java.util.Arrays;
 /**
  * @author ：archer
  * @date ：Created in 2021/6/11 17:52
- * @description：
+ * @description： 类型参数解析器
  * @modified By：
  */
 public class TypeParameterResolver {

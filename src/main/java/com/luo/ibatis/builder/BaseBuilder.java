@@ -5,6 +5,7 @@ import com.luo.ibatis.type.JdbcType;
 import com.luo.ibatis.type.TypeAliasRegistry;
 import com.luo.ibatis.type.TypeHandler;
 import com.luo.ibatis.type.TypeHandlerRegistry;
+import lombok.Data;
 
 import java.util.Arrays;
 import java.util.HashSet;

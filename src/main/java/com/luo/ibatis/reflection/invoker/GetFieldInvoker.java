@@ -6,7 +6,7 @@ import java.lang.reflect.InvocationTargetException;
 /**
  * @author ：archer
  * @date ：Created in 2021/6/11 17:50
- * @description：
+ * @description：获取属性值
  * @modified By：
  */
 public class GetFieldInvoker implements Invoker {

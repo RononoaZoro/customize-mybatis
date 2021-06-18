@@ -1,5 +1,7 @@
 package com.luo.ibatis.mapping;
 
+import com.luo.ibatis.transaction.TransactionFactory;
+
 import javax.sql.DataSource;
 
 /**
@@ -11,40 +13,40 @@ import javax.sql.DataSource;
 public class Environment {
 
     // 环境Id
-//    private final String id;
+    private final String id;
     // 事务管理器工厂
-//    private final TransactionFactory transactionFactory;
+    private final TransactionFactory transactionFactory;
     // 数据源
-//    private final DataSource dataSource;
+    private final DataSource dataSource;
 
-//    public Environment(String id, TransactionFactory transactionFactory, DataSource dataSource) {
-//        if (id == null) {
-//            throw new IllegalArgumentException("Parameter 'id' must not be null");
-//        }
-//        if (transactionFactory == null) {
-//            throw new IllegalArgumentException("Parameter 'transactionFactory' must not be null");
-//        }
-//        this.id = id;
-//        if (dataSource == null) {
-//            throw new IllegalArgumentException("Parameter 'dataSource' must not be null");
-//        }
-//        this.transactionFactory = transactionFactory;
-//        this.dataSource = dataSource;
-//    }
+    public Environment(String id, TransactionFactory transactionFactory, DataSource dataSource) {
+        if (id == null) {
+            throw new IllegalArgumentException("Parameter 'id' must not be null");
+        }
+        if (transactionFactory == null) {
+            throw new IllegalArgumentException("Parameter 'transactionFactory' must not be null");
+        }
+        this.id = id;
+        if (dataSource == null) {
+            throw new IllegalArgumentException("Parameter 'dataSource' must not be null");
+        }
+        this.transactionFactory = transactionFactory;
+        this.dataSource = dataSource;
+    }
 
     public static class Builder {
         private String id;
-//        private TransactionFactory transactionFactory;
+        private TransactionFactory transactionFactory;
         private DataSource dataSource;
 
         public Builder(String id) {
             this.id = id;
         }
 
-//        public Builder transactionFactory(TransactionFactory transactionFactory) {
-//            this.transactionFactory = transactionFactory;
-//            return this;
-//        }
+        public Builder transactionFactory(TransactionFactory transactionFactory) {
+            this.transactionFactory = transactionFactory;
+            return this;
+        }
 
         public Builder dataSource(DataSource dataSource) {
             this.dataSource = dataSource;
@@ -55,21 +57,21 @@ public class Environment {
             return this.id;
         }
 
-//        public Environment build() {
-//            return new Environment(this.id, this.transactionFactory, this.dataSource);
-//        }
+        public Environment build() {
+            return new Environment(this.id, this.transactionFactory, this.dataSource);
+        }
 
     }
 
-//    public String getId() {
-//        return this.id;
-//    }
+    public String getId() {
+        return this.id;
+    }
 
-//    public TransactionFactory getTransactionFactory() {
-//        return this.transactionFactory;
-//    }
+    public TransactionFactory getTransactionFactory() {
+        return this.transactionFactory;
+    }
 
-//    public DataSource getDataSource() {
-//        return this.dataSource;
-//    }
+    public DataSource getDataSource() {
+        return this.dataSource;
+    }
 }

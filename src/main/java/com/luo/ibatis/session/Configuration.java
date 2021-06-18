@@ -5,6 +5,7 @@ import com.luo.ibatis.datasource.pooled.PooledDataSourceFactory;
 import com.luo.ibatis.datasource.unpooled.UnpooledDataSourceFactory;
 import com.luo.ibatis.io.VFS;
 import com.luo.ibatis.logging.Log;
+import com.luo.ibatis.logging.LogFactory;
 import com.luo.ibatis.logging.commons.JakartaCommonsLoggingImpl;
 import com.luo.ibatis.logging.jdk14.Jdk14LoggingImpl;
 import com.luo.ibatis.logging.log4j.Log4jImpl;
@@ -15,9 +16,16 @@ import com.luo.ibatis.logging.stdout.StdOutImpl;
 import com.luo.ibatis.mapping.Environment;
 import com.luo.ibatis.parsing.XNode;
 import com.luo.ibatis.reflection.DefaultReflectorFactory;
+import com.luo.ibatis.reflection.ObjectWrapperFactory;
 import com.luo.ibatis.reflection.ReflectorFactory;
+import com.luo.ibatis.reflection.factory.DefaultObjectFactory;
+import com.luo.ibatis.reflection.factory.ObjectFactory;
+import com.luo.ibatis.reflection.wrapper.DefaultObjectWrapperFactory;
+import com.luo.ibatis.transaction.jdbc.JdbcTransactionFactory;
+import com.luo.ibatis.transaction.managed.ManagedTransactionFactory;
 import com.luo.ibatis.type.JdbcType;
 import com.luo.ibatis.type.TypeAliasRegistry;
+import com.luo.ibatis.type.TypeHandler;
 import com.luo.ibatis.type.TypeHandlerRegistry;
 import javassist.util.proxy.ProxyFactory;
 
@@ -59,8 +67,8 @@ public class Configuration {
 
     protected Properties variables = new Properties();
     protected ReflectorFactory reflectorFactory = new DefaultReflectorFactory();
-//    protected ObjectFactory objectFactory = new DefaultObjectFactory();
-//    protected ObjectWrapperFactory objectWrapperFactory = new DefaultObjectWrapperFactory();
+    protected ObjectFactory objectFactory = new DefaultObjectFactory();
+    protected ObjectWrapperFactory objectWrapperFactory = new DefaultObjectWrapperFactory();
 
     protected boolean lazyLoadingEnabled = false;
 //    protected ProxyFactory proxyFactory = new JavassistProxyFactory(); // #224 Using internal Javassist instead of OGNL
@@ -112,8 +120,8 @@ public class Configuration {
     }
 
     public Configuration() {
-//        typeAliasRegistry.registerAlias("JDBC", JdbcTransactionFactory.class);
-//        typeAliasRegistry.registerAlias("MANAGED", ManagedTransactionFactory.class);
+        typeAliasRegistry.registerAlias("JDBC", JdbcTransactionFactory.class);
+        typeAliasRegistry.registerAlias("MANAGED", ManagedTransactionFactory.class);
 
         typeAliasRegistry.registerAlias("JNDI", JndiDataSourceFactory.class);
         typeAliasRegistry.registerAlias("POOLED", PooledDataSourceFactory.class);
@@ -159,6 +167,228 @@ public class Configuration {
 
     public void setVariables(Properties variables) {
         this.variables = variables;
+    }
+
+    public ReflectorFactory getReflectorFactory() {
+        return reflectorFactory;
+    }
+
+    public void setReflectorFactory(ReflectorFactory reflectorFactory) {
+        this.reflectorFactory = reflectorFactory;
+    }
+
+    public ObjectFactory getObjectFactory() {
+        return objectFactory;
+    }
+
+    public void setObjectFactory(ObjectFactory objectFactory) {
+        this.objectFactory = objectFactory;
+    }
+
+    public ObjectWrapperFactory getObjectWrapperFactory() {
+        return objectWrapperFactory;
+    }
+
+    public void setObjectWrapperFactory(ObjectWrapperFactory objectWrapperFactory) {
+        this.objectWrapperFactory = objectWrapperFactory;
+    }
+
+    /**
+     * Set a default {@link TypeHandler} class for {@link Enum}.
+     * A default {@link TypeHandler} is {@link com.luo.ibatis.type.EnumTypeHandler}.
+     * @param typeHandler a type handler class for {@link Enum}
+     * @since 3.4.5
+     */
+    public void setDefaultEnumTypeHandler(Class<? extends TypeHandler> typeHandler) {
+        if (typeHandler != null) {
+            getTypeHandlerRegistry().setDefaultEnumTypeHandler(typeHandler);
+        }
+    }
+
+    public boolean isLazyLoadingEnabled() {
+        return lazyLoadingEnabled;
+    }
+
+    public void setLazyLoadingEnabled(boolean lazyLoadingEnabled) {
+        this.lazyLoadingEnabled = lazyLoadingEnabled;
+    }
+
+
+
+    public boolean isAggressiveLazyLoading() {
+        return aggressiveLazyLoading;
+    }
+
+    public void setAggressiveLazyLoading(boolean aggressiveLazyLoading) {
+        this.aggressiveLazyLoading = aggressiveLazyLoading;
+    }
+
+    public void setMultipleResultSetsEnabled(boolean multipleResultSetsEnabled) {
+        this.multipleResultSetsEnabled = multipleResultSetsEnabled;
+    }
+
+    public Set<String> getLazyLoadTriggerMethods() {
+        return lazyLoadTriggerMethods;
+    }
+
+    /**
+     * @since 3.3.0
+     */
+    public Integer getDefaultFetchSize() {
+        return defaultFetchSize;
+    }
+
+    /**
+     * @since 3.3.0
+     */
+    public void setDefaultFetchSize(Integer defaultFetchSize) {
+        this.defaultFetchSize = defaultFetchSize;
+    }
+
+    public boolean isUseColumnLabel() {
+        return useColumnLabel;
+    }
+
+    public void setUseColumnLabel(boolean useColumnLabel) {
+        this.useColumnLabel = useColumnLabel;
+    }
+
+
+    public String getLogPrefix() {
+        return logPrefix;
+    }
+
+    public void setLogPrefix(String logPrefix) {
+        this.logPrefix = logPrefix;
+    }
+
+    public Class<? extends Log> getLogImpl() {
+        return logImpl;
+    }
+
+    public void setLogImpl(Class<? extends Log> logImpl) {
+        if (logImpl != null) {
+            this.logImpl = logImpl;
+            // 调用LogFactory类的useCustomLogging（）方法指定日志实现类
+            LogFactory.useCustomLogging(this.logImpl);
+        }
+    }
+
+    public Class<? extends VFS> getVfsImpl() {
+        return this.vfsImpl;
+    }
+
+    public void setVfsImpl(Class<? extends VFS> vfsImpl) {
+        if (vfsImpl != null) {
+            this.vfsImpl = vfsImpl;
+            VFS.addImplClass(this.vfsImpl);
+        }
+    }
+
+    public boolean isMultipleResultSetsEnabled() {
+        return multipleResultSetsEnabled;
+    }
+
+    public void setLazyLoadTriggerMethods(Set<String> lazyLoadTriggerMethods) {
+        this.lazyLoadTriggerMethods = lazyLoadTriggerMethods;
+    }
+
+    public boolean isUseGeneratedKeys() {
+        return useGeneratedKeys;
+    }
+
+    public void setUseGeneratedKeys(boolean useGeneratedKeys) {
+        this.useGeneratedKeys = useGeneratedKeys;
+    }
+
+
+    public boolean isCallSettersOnNulls() {
+        return callSettersOnNulls;
+    }
+
+    public void setCallSettersOnNulls(boolean callSettersOnNulls) {
+        this.callSettersOnNulls = callSettersOnNulls;
+    }
+
+    public boolean isUseActualParamName() {
+        return useActualParamName;
+    }
+
+    public void setUseActualParamName(boolean useActualParamName) {
+        this.useActualParamName = useActualParamName;
+    }
+
+    public String getDatabaseId() {
+        return databaseId;
+    }
+
+    public void setDatabaseId(String databaseId) {
+        this.databaseId = databaseId;
+    }
+
+    public Class<?> getConfigurationFactory() {
+        return configurationFactory;
+    }
+
+    public void setConfigurationFactory(Class<?> configurationFactory) {
+        this.configurationFactory = configurationFactory;
+    }
+
+    public boolean isReturnInstanceForEmptyRow() {
+        return returnInstanceForEmptyRow;
+    }
+
+    public void setReturnInstanceForEmptyRow(boolean returnEmptyInstance) {
+        this.returnInstanceForEmptyRow = returnEmptyInstance;
+    }
+
+
+    public Environment getEnvironment() {
+        return environment;
+    }
+
+    public void setEnvironment(Environment environment) {
+        this.environment = environment;
+    }
+
+    public boolean isSafeResultHandlerEnabled() {
+        return safeResultHandlerEnabled;
+    }
+
+    public void setSafeResultHandlerEnabled(boolean safeResultHandlerEnabled) {
+        this.safeResultHandlerEnabled = safeResultHandlerEnabled;
+    }
+
+    public boolean isSafeRowBoundsEnabled() {
+        return safeRowBoundsEnabled;
+    }
+
+    public void setSafeRowBoundsEnabled(boolean safeRowBoundsEnabled) {
+        this.safeRowBoundsEnabled = safeRowBoundsEnabled;
+    }
+
+    public Integer getDefaultStatementTimeout() {
+        return defaultStatementTimeout;
+    }
+
+    public void setDefaultStatementTimeout(Integer defaultStatementTimeout) {
+        this.defaultStatementTimeout = defaultStatementTimeout;
+    }
+
+    public boolean isMapUnderscoreToCamelCase() {
+        return mapUnderscoreToCamelCase;
+    }
+
+    public void setMapUnderscoreToCamelCase(boolean mapUnderscoreToCamelCase) {
+        this.mapUnderscoreToCamelCase = mapUnderscoreToCamelCase;
+    }
+
+    public JdbcType getJdbcTypeForNull() {
+        return jdbcTypeForNull;
+    }
+
+    public void setJdbcTypeForNull(JdbcType jdbcTypeForNull) {
+        this.jdbcTypeForNull = jdbcTypeForNull;
     }
 
 
