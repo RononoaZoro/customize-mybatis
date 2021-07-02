@@ -2,6 +2,7 @@ package com.luo.ibatis.datasource.unpooled;
 
 import com.luo.ibatis.io.Resources;
 import lombok.Data;
+import lombok.Getter;
 
 import javax.sql.DataSource;
 import java.io.PrintWriter;
@@ -18,7 +19,6 @@ import java.util.logging.Logger;
  * @description：非池化连接池
  * @modified By：
  */
-@Data
 public class UnpooledDataSource implements DataSource {
 
     private ClassLoader driverClassLoader;
@@ -72,9 +72,70 @@ public class UnpooledDataSource implements DataSource {
         this.driverProperties = driverProperties;
     }
 
+    public ClassLoader getDriverClassLoader() {
+        return driverClassLoader;
+    }
+
+    public void setDriverClassLoader(ClassLoader driverClassLoader) {
+        this.driverClassLoader = driverClassLoader;
+    }
+
+    public Properties getDriverProperties() {
+        return driverProperties;
+    }
+
+    public void setDriverProperties(Properties driverProperties) {
+        this.driverProperties = driverProperties;
+    }
+
+    public String getDriver() {
+        return driver;
+    }
+
+    public synchronized void setDriver(String driver) {
+        this.driver = driver;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public Boolean isAutoCommit() {
         return autoCommit;
     }
+
+    public void setAutoCommit(Boolean autoCommit) {
+        this.autoCommit = autoCommit;
+    }
+
+    public Integer getDefaultTransactionIsolationLevel() {
+        return defaultTransactionIsolationLevel;
+    }
+
+    public void setDefaultTransactionIsolationLevel(Integer defaultTransactionIsolationLevel) {
+        this.defaultTransactionIsolationLevel = defaultTransactionIsolationLevel;
+    }
+
 
     @Override
     public Connection getConnection() throws SQLException {

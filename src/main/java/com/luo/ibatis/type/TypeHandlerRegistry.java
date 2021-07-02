@@ -1,5 +1,6 @@
 package com.luo.ibatis.type;
 
+import com.luo.ibatis.binding.MapperMethod;
 import com.luo.ibatis.io.ResolverUtil;
 import com.luo.ibatis.io.Resources;
 import com.luo.ibatis.reflection.Jdk;
@@ -20,6 +21,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author ：archer
  * @date ：Created in 2021/6/10 19:56
  * @description：类型别名映射器
+ * java类型数jdbc类型映射绑定器
  * @modified By：
  */
 public class TypeHandlerRegistry {
@@ -190,14 +192,15 @@ public class TypeHandlerRegistry {
 
     @SuppressWarnings("unchecked")
     private <T> TypeHandler<T> getTypeHandler(Type type, JdbcType jdbcType) {
-//        if (ParamMap.class.equals(type)) {
-//            return null;
-//        }
+        if (MapperMethod.ParamMap.class.equals(type)) {
+            return null;
+        }
         Map<JdbcType, TypeHandler<?>> jdbcHandlerMap = getJdbcHandlerMap(type);
         TypeHandler<?> handler = null;
         if (jdbcHandlerMap != null) {
             handler = jdbcHandlerMap.get(jdbcType);
             if (handler == null) {
+                //没找到就用null （默认的）
                 handler = jdbcHandlerMap.get(null);
             }
             if (handler == null) {

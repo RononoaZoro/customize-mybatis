@@ -128,6 +128,14 @@
         </dependency>
         <!--动态代理依赖-->
 
+        <dependency>
+            <groupId>ognl</groupId>
+            <artifactId>ognl</artifactId>
+            <version>3.2.6</version>
+            <scope>compile</scope>
+            <optional>true</optional>
+        </dependency>
+
     </dependencies>
 
 

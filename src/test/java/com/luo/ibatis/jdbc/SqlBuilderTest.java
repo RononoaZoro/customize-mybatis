@@ -17,7 +17,7 @@ package com.luo.ibatis.jdbc;
 
 import org.junit.Test;
 
-import static org.apache.ibatis.jdbc.SqlBuilder.*;
+import static com.luo.ibatis.jdbc.SqlBuilder.*;
 import static org.junit.Assert.assertEquals;
 
 public class SqlBuilderTest {

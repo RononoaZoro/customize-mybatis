@@ -18,8 +18,9 @@ package com.luo.ibatis.domain.misc;
 
 import com.luo.ibatis.domain.blog.Author;
 import com.luo.ibatis.reflection.MetaObject;
-import com.luo.ibatis.reflection.ObjectWrapper;
-import com.luo.ibatis.reflection.ObjectWrapperFactory;
+import com.luo.ibatis.reflection.wrapper.ObjectWrapper;
+import com.luo.ibatis.reflection.wrapper.ObjectWrapperFactory;
+
 
 public class CustomBeanWrapperFactory implements ObjectWrapperFactory {
   @Override

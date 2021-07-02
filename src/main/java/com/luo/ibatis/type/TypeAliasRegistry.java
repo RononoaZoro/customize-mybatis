@@ -11,7 +11,7 @@ import java.util.*;
 /**
  * @author ：archer
  * @date ：Created in 2021/6/11 18:01
- * @description：类型别名映射器
+ * @description：java类型别名映射器
  * @modified By：
  */
 public class TypeAliasRegistry {

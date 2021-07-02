@@ -4,6 +4,7 @@ import com.luo.ibatis.builder.BaseBuilder;
 import com.luo.ibatis.builder.BuilderException;
 import com.luo.ibatis.datasource.DataSourceFactory;
 import com.luo.ibatis.executor.ErrorContext;
+import com.luo.ibatis.executor.loader.ProxyFactory;
 import com.luo.ibatis.io.Resources;
 import com.luo.ibatis.io.VFS;
 import com.luo.ibatis.logging.Log;
@@ -11,12 +12,13 @@ import com.luo.ibatis.mapping.DatabaseIdProvider;
 import com.luo.ibatis.mapping.Environment;
 import com.luo.ibatis.parsing.XNode;
 import com.luo.ibatis.parsing.XPathParser;
+import com.luo.ibatis.plugin.Interceptor;
 import com.luo.ibatis.reflection.DefaultReflectorFactory;
 import com.luo.ibatis.reflection.MetaClass;
-import com.luo.ibatis.reflection.ObjectWrapperFactory;
 import com.luo.ibatis.reflection.ReflectorFactory;
 import com.luo.ibatis.reflection.factory.ObjectFactory;
-import com.luo.ibatis.session.Configuration;
+import com.luo.ibatis.reflection.wrapper.ObjectWrapperFactory;
+import com.luo.ibatis.session.*;
 import com.luo.ibatis.transaction.TransactionFactory;
 import com.luo.ibatis.type.JdbcType;
 import com.luo.ibatis.type.TypeHandler;
@@ -91,7 +93,7 @@ public class XMLConfigBuilder extends BaseBuilder {
             Properties settings = settingsAsProperties(root.evalNode("settings"));
             loadCustomVfs(settings);
             typeAliasesElement(root.evalNode("typeAliases"));
-//            pluginElement(root.evalNode("plugins"));
+            pluginElement(root.evalNode("plugins"));
             objectFactoryElement(root.evalNode("objectFactory"));
             objectWrapperFactoryElement(root.evalNode("objectWrapperFactory"));
             reflectorFactoryElement(root.evalNode("reflectorFactory"));
@@ -100,9 +102,44 @@ public class XMLConfigBuilder extends BaseBuilder {
             environmentsElement(root.evalNode("environments"));
             databaseIdProviderElement(root.evalNode("databaseIdProvider"));
             typeHandlerElement(root.evalNode("typeHandlers"));
-//            mapperElement(root.evalNode("mappers"));
+            mapperElement(root.evalNode("mappers"));
         } catch (Exception e) {
             throw new BuilderException("Error parsing SQL Mapper Configuration. Cause: " + e, e);
+        }
+    }
+
+    private void mapperElement(XNode parent) throws Exception {
+        if (parent != null) {
+            for (XNode child : parent.getChildren()) {
+                // 通过<package>标签指定包名
+                if ("package".equals(child.getName())) {
+                    String mapperPackage = child.getStringAttribute("name");
+                    configuration.addMappers(mapperPackage);
+                } else {
+                    String resource = child.getStringAttribute("resource");
+                    String url = child.getStringAttribute("url");
+                    String mapperClass = child.getStringAttribute("class");
+                    // 通过resource属性指定XML文件路径
+                    if (resource != null && url == null && mapperClass == null) {
+                        ErrorContext.instance().resource(resource);
+                        InputStream inputStream = Resources.getResourceAsStream(resource);
+                        XMLMapperBuilder mapperParser = new XMLMapperBuilder(inputStream, configuration, resource, configuration.getSqlFragments());
+                        mapperParser.parse();
+                    } else if (resource == null && url != null && mapperClass == null) {
+                        // 通过url属性指定XML文件路径
+                        ErrorContext.instance().resource(url);
+                        InputStream inputStream = Resources.getUrlAsStream(url);
+                        XMLMapperBuilder mapperParser = new XMLMapperBuilder(inputStream, configuration, url, configuration.getSqlFragments());
+                        mapperParser.parse();
+                    } else if (resource == null && url == null && mapperClass != null) {
+                        // 通过class属性指定接口的完全限定名
+                        Class<?> mapperInterface = Resources.classForName(mapperClass);
+                        configuration.addMapper(mapperInterface);
+                    } else {
+                        throw new BuilderException("A mapper element may only specify a url, resource or class, but not more than one.");
+                    }
+                }
+            }
         }
     }
 
@@ -168,22 +205,22 @@ public class XMLConfigBuilder extends BaseBuilder {
     }
 
 
-//    private void pluginElement(XNode parent) throws Exception {
-//        if (parent != null) {
-//            for (XNode child : parent.getChildren()) {
-//                // 获取<plugin>标签的interceptor属性
-//                String interceptor = child.getStringAttribute("interceptor");
-//                // 获取拦截器属性，转换为Properties对象
-//                Properties properties = child.getChildrenAsProperties();
-//                // 创建拦截器实例
-//                Interceptor interceptorInstance = (Interceptor) resolveClass(interceptor).newInstance();
-//                // 设置拦截器实例属性信息
-//                interceptorInstance.setProperties(properties);
-//                // 將拦截器实例添加到拦截器链中
-//                configuration.addInterceptor(interceptorInstance);
-//            }
-//        }
-//    }
+    private void pluginElement(XNode parent) throws Exception {
+        if (parent != null) {
+            for (XNode child : parent.getChildren()) {
+                // 获取<plugin>标签的interceptor属性
+                String interceptor = child.getStringAttribute("interceptor");
+                // 获取拦截器属性，转换为Properties对象
+                Properties properties = child.getChildrenAsProperties();
+                // 创建拦截器实例
+                Interceptor interceptorInstance = (Interceptor) resolveClass(interceptor).newInstance();
+                // 设置拦截器实例属性信息
+                interceptorInstance.setProperties(properties);
+                // 將拦截器实例添加到拦截器链中
+                configuration.addInterceptor(interceptorInstance);
+            }
+        }
+    }
 
 
     private void objectFactoryElement(XNode context) throws Exception {
@@ -283,25 +320,25 @@ public class XMLConfigBuilder extends BaseBuilder {
 
 
     private void settingsElement(Properties props) throws Exception {
-//        configuration.setAutoMappingBehavior(AutoMappingBehavior.valueOf(props.getProperty("autoMappingBehavior", "PARTIAL")));
-//        configuration.setAutoMappingUnknownColumnBehavior(AutoMappingUnknownColumnBehavior.valueOf(props.getProperty("autoMappingUnknownColumnBehavior", "NONE")));
-//        configuration.setCacheEnabled(booleanValueOf(props.getProperty("cacheEnabled"), true));
-//        configuration.setProxyFactory((ProxyFactory) createInstance(props.getProperty("proxyFactory")));
+        configuration.setAutoMappingBehavior(AutoMappingBehavior.valueOf(props.getProperty("autoMappingBehavior", "PARTIAL")));
+        configuration.setAutoMappingUnknownColumnBehavior(AutoMappingUnknownColumnBehavior.valueOf(props.getProperty("autoMappingUnknownColumnBehavior", "NONE")));
+        configuration.setCacheEnabled(booleanValueOf(props.getProperty("cacheEnabled"), true));
+        configuration.setProxyFactory((ProxyFactory) createInstance(props.getProperty("proxyFactory")));
         configuration.setLazyLoadingEnabled(booleanValueOf(props.getProperty("lazyLoadingEnabled"), false));
         configuration.setAggressiveLazyLoading(booleanValueOf(props.getProperty("aggressiveLazyLoading"), false));
         configuration.setMultipleResultSetsEnabled(booleanValueOf(props.getProperty("multipleResultSetsEnabled"), true));
         configuration.setUseColumnLabel(booleanValueOf(props.getProperty("useColumnLabel"), true));
         configuration.setUseGeneratedKeys(booleanValueOf(props.getProperty("useGeneratedKeys"), false));
-//        configuration.setDefaultExecutorType(ExecutorType.valueOf(props.getProperty("defaultExecutorType", "SIMPLE")));
+        configuration.setDefaultExecutorType(ExecutorType.valueOf(props.getProperty("defaultExecutorType", "SIMPLE")));
         configuration.setDefaultStatementTimeout(integerValueOf(props.getProperty("defaultStatementTimeout"), null));
         configuration.setDefaultFetchSize(integerValueOf(props.getProperty("defaultFetchSize"), null));
         configuration.setMapUnderscoreToCamelCase(booleanValueOf(props.getProperty("mapUnderscoreToCamelCase"), false));
         configuration.setSafeRowBoundsEnabled(booleanValueOf(props.getProperty("safeRowBoundsEnabled"), false));
-//        configuration.setLocalCacheScope(LocalCacheScope.valueOf(props.getProperty("localCacheScope", "SESSION")));
+        configuration.setLocalCacheScope(LocalCacheScope.valueOf(props.getProperty("localCacheScope", "SESSION")));
         configuration.setJdbcTypeForNull(JdbcType.valueOf(props.getProperty("jdbcTypeForNull", "OTHER")));
         configuration.setLazyLoadTriggerMethods(stringSetValueOf(props.getProperty("lazyLoadTriggerMethods"), "equals,clone,hashCode,toString"));
         configuration.setSafeResultHandlerEnabled(booleanValueOf(props.getProperty("safeResultHandlerEnabled"), true));
-//        configuration.setDefaultScriptingLanguage(resolveClass(props.getProperty("defaultScriptingLanguage")));
+        configuration.setDefaultScriptingLanguage(resolveClass(props.getProperty("defaultScriptingLanguage")));
         @SuppressWarnings("unchecked")
         Class<? extends TypeHandler> typeHandler = (Class<? extends TypeHandler>) resolveClass(props.getProperty("defaultEnumTypeHandler"));
         configuration.setDefaultEnumTypeHandler(typeHandler);

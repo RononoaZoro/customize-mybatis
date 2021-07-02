@@ -3,6 +3,7 @@ package com.luo.ibatis.reflection;
 import com.luo.ibatis.reflection.factory.DefaultObjectFactory;
 import com.luo.ibatis.reflection.factory.ObjectFactory;
 import com.luo.ibatis.reflection.wrapper.DefaultObjectWrapperFactory;
+import com.luo.ibatis.reflection.wrapper.ObjectWrapperFactory;
 
 /**
  * @author ：archer

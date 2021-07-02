@@ -1,8 +1,6 @@
 package com.luo.ibatis.reflection.wrapper;
 
 import com.luo.ibatis.reflection.MetaObject;
-import com.luo.ibatis.reflection.ObjectWrapper;
-import com.luo.ibatis.reflection.ObjectWrapperFactory;
 import com.luo.ibatis.reflection.ReflectionException;
 
 /**

@@ -1,5 +1,7 @@
 package com.luo.ibatis.builder;
 
+import com.luo.ibatis.mapping.ParameterMode;
+import com.luo.ibatis.mapping.ResultSetType;
 import com.luo.ibatis.session.Configuration;
 import com.luo.ibatis.type.JdbcType;
 import com.luo.ibatis.type.TypeAliasRegistry;
@@ -62,27 +64,27 @@ public class BaseBuilder {
         }
     }
 
-//    protected ResultSetType resolveResultSetType(String alias) {
-//        if (alias == null) {
-//            return null;
-//        }
-//        try {
-//            return ResultSetType.valueOf(alias);
-//        } catch (IllegalArgumentException e) {
-//            throw new BuilderException("Error resolving ResultSetType. Cause: " + e, e);
-//        }
-//    }
+    protected ResultSetType resolveResultSetType(String alias) {
+        if (alias == null) {
+            return null;
+        }
+        try {
+            return ResultSetType.valueOf(alias);
+        } catch (IllegalArgumentException e) {
+            throw new BuilderException("Error resolving ResultSetType. Cause: " + e, e);
+        }
+    }
 
-//    protected ParameterMode resolveParameterMode(String alias) {
-//        if (alias == null) {
-//            return null;
-//        }
-//        try {
-//            return ParameterMode.valueOf(alias);
-//        } catch (IllegalArgumentException e) {
-//            throw new BuilderException("Error resolving ParameterMode. Cause: " + e, e);
-//        }
-//    }
+    protected ParameterMode resolveParameterMode(String alias) {
+        if (alias == null) {
+            return null;
+        }
+        try {
+            return ParameterMode.valueOf(alias);
+        } catch (IllegalArgumentException e) {
+            throw new BuilderException("Error resolving ParameterMode. Cause: " + e, e);
+        }
+    }
 
     protected Object createInstance(String alias) {
         Class<?> clazz = resolveClass(alias);
@@ -115,7 +117,7 @@ public class BaseBuilder {
         if (type != null && !TypeHandler.class.isAssignableFrom(type)) {
             throw new BuilderException("Type " + type.getName() + " is not a valid TypeHandler because it does not implement TypeHandler interface");
         }
-        @SuppressWarnings( "unchecked" ) // already verified it is a TypeHandler
+        @SuppressWarnings("unchecked") // already verified it is a TypeHandler
         Class<? extends TypeHandler<?>> typeHandlerType = (Class<? extends TypeHandler<?>>) type;
         return resolveTypeHandler(javaType, typeHandlerType);
     }

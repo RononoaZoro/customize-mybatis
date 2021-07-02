@@ -2,9 +2,7 @@ package com.luo.ibatis.reflection;
 
 import com.luo.ibatis.reflection.factory.ObjectFactory;
 import com.luo.ibatis.reflection.property.PropertyTokenizer;
-import com.luo.ibatis.reflection.wrapper.BeanWrapper;
-import com.luo.ibatis.reflection.wrapper.CollectionWrapper;
-import com.luo.ibatis.reflection.wrapper.MapWrapper;
+import com.luo.ibatis.reflection.wrapper.*;
 
 import java.util.Collection;
 import java.util.List;

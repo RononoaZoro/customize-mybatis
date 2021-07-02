@@ -1,10 +1,11 @@
-package com.luo.ibatis.reflection;
+package com.luo.ibatis.reflection.wrapper;
+
+import com.luo.ibatis.reflection.MetaObject;
 
 /**
  * @author ：archer
- * @date ：Created in 2021/6/15 15:56
- * @description：对象装饰工厂
- * @modified By：
+ * @date ：Created in 2021/7/1 15:47
+ * @description：
  */
 public interface ObjectWrapperFactory {
 
