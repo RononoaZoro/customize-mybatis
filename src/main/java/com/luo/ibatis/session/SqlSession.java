@@ -1,5 +1,6 @@
 package com.luo.ibatis.session;
 
+import com.luo.ibatis.cursor.Cursor;
 import com.luo.ibatis.executor.BatchResult;
 
 import java.io.Closeable;
@@ -59,7 +60,7 @@ public interface SqlSession extends Closeable {
      * @param rowBounds  Bounds to limit object retrieval
      * @return List of mapped object
      */
-//    <E> List<E> selectList(String statement, Object parameter, RowBounds rowBounds);
+    <E> List<E> selectList(String statement, Object parameter, RowBounds rowBounds);
 
     /**
      * The selectMap is a special case in that it is designed to convert a list
@@ -99,7 +100,7 @@ public interface SqlSession extends Closeable {
      * @param rowBounds  Bounds to limit object retrieval
      * @return Map containing key pair data.
      */
-//    <K, V> Map<K, V> selectMap(String statement, Object parameter, String mapKey, RowBounds rowBounds);
+    <K, V> Map<K, V> selectMap(String statement, Object parameter, String mapKey, RowBounds rowBounds);
 
     /**
      * A Cursor offers the same results as a List, except it fetches data lazily using an Iterator.
@@ -107,7 +108,7 @@ public interface SqlSession extends Closeable {
      * @param statement Unique identifier matching the statement to use.
      * @return Cursor of mapped objects
      */
-//    <T> Cursor<T> selectCursor(String statement);
+    <T> Cursor<T> selectCursor(String statement);
 
     /**
      * A Cursor offers the same results as a List, except it fetches data lazily using an Iterator.
@@ -116,7 +117,7 @@ public interface SqlSession extends Closeable {
      * @param parameter A parameter object to pass to the statement.
      * @return Cursor of mapped objects
      */
-//    <T> Cursor<T> selectCursor(String statement, Object parameter);
+    <T> Cursor<T> selectCursor(String statement, Object parameter);
 
     /**
      * A Cursor offers the same results as a List, except it fetches data lazily using an Iterator.
@@ -126,7 +127,7 @@ public interface SqlSession extends Closeable {
      * @param rowBounds  Bounds to limit object retrieval
      * @return Cursor of mapped objects
      */
-//    <T> Cursor<T> selectCursor(String statement, Object parameter, RowBounds rowBounds);
+    <T> Cursor<T> selectCursor(String statement, Object parameter, RowBounds rowBounds);
 
     /**
      * Retrieve a single row mapped from the statement key and parameter
@@ -135,7 +136,7 @@ public interface SqlSession extends Closeable {
      * @param parameter A parameter object to pass to the statement.
      * @param handler ResultHandler that will handle each retrieved row
      */
-//    void select(String statement, Object parameter, ResultHandler handler);
+    void select(String statement, Object parameter, ResultHandler handler);
 
     /**
      * Retrieve a single row mapped from the statement
@@ -143,7 +144,7 @@ public interface SqlSession extends Closeable {
      * @param statement Unique identifier matching the statement to use.
      * @param handler ResultHandler that will handle each retrieved row
      */
-//    void select(String statement, ResultHandler handler);
+    void select(String statement, ResultHandler handler);
 
     /**
      * Retrieve a single row mapped from the statement key and parameter
@@ -152,7 +153,7 @@ public interface SqlSession extends Closeable {
      * @param rowBounds RowBound instance to limit the query results
      * @param handler ResultHandler that will handle each retrieved row
      */
-//    void select(String statement, Object parameter, RowBounds rowBounds, ResultHandler handler);
+    void select(String statement, Object parameter, RowBounds rowBounds, ResultHandler handler);
 
     /**
      * Execute an insert statement.

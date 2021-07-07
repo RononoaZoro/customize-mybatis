@@ -229,6 +229,7 @@ public class XMLMapperBuilder extends BaseBuilder {
                 resultMapElement(resultMapNode);
             } catch (IncompleteElementException e) {
                 // ignore, it will be retried
+                //忽略，会重试
             }
         }
     }

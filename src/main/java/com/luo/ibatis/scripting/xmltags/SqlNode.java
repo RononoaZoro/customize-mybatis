@@ -17,6 +17,7 @@ package com.luo.ibatis.scripting.xmltags;
 
 /**
  * @author Clinton Begin
+ * mapper。xml文件中对于sql的java对象封装
  */
 public interface SqlNode {
   boolean apply(DynamicContext context);

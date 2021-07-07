@@ -24,9 +24,12 @@ import java.util.regex.Pattern;
 
 /**
  * @author Clinton Begin
+ * 描述mapper.xml中的文本节点的sql
+ * 如果node节点子元素为SQL文本内容，则使用TextSqlNode描述该节点
  */
 public class TextSqlNode implements SqlNode {
   private final String text;
+  //注入过滤器
   private final Pattern injectionFilter;
 
   public TextSqlNode(String text) {
@@ -93,7 +96,8 @@ public class TextSqlNode implements SqlNode {
       }
     }
   }
-  
+
+  //动态sql检查器
   private static class DynamicCheckerTokenParser implements TokenHandler {
 
     private boolean isDynamic;

@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * @author ：archer
  * @date ：Created in 2021/6/30 21:18
- * @description：
+ * @description： result 解析器
  */
 public class ResultMapResolver {
 

@@ -17,7 +17,7 @@ import java.util.*;
 /**
  * @author ：archer
  * @date ：Created in 2021/6/29 21:45
- * @description：
+ * @description： Mapper 构造助手
  */
 public class MapperBuilderAssistant extends BaseBuilder {
 

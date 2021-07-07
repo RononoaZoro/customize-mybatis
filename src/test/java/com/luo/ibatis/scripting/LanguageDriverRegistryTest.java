@@ -80,7 +80,6 @@ public class LanguageDriverRegistryTest {
   public void registerByInstanceSameType() {
     registry.register(new PrivateLanguageDriver());
     LanguageDriver driver = registry.getDriver(PrivateLanguageDriver.class);
-
     registry.register(new PrivateLanguageDriver());
 
     assertThat(driver).isSameAs(registry.getDriver(PrivateLanguageDriver.class));

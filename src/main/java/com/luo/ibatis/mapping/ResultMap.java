@@ -15,7 +15,7 @@ import java.util.*;
 /**
  * @author ：archer
  * @date ：Created in 2021/6/30 21:11
- * @description：
+ * @description： 一个完整的resultmap保存器
  */
 public class ResultMap {
 

@@ -18,6 +18,7 @@ import java.util.Map;
  * the value from).
  * <p>
  * Can also have additional parameters that are created by the dynamic language (for loops, bind...).
+ * 真正保存与sql绑定的相关参数，值的实体类
  */
 public class BoundSql {
 

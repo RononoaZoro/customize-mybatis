@@ -17,6 +17,7 @@ package com.luo.ibatis.scripting.xmltags;
 
 /**
  * @author Clinton Begin
+ * 静态文本sql节点
  */
 public class StaticTextSqlNode implements SqlNode {
   // 静态SQL文本内容

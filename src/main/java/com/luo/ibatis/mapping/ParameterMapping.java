@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 /**
  * @author ：archer
  * @date ：Created in 2021/6/30 21:04
- * @description：
+ * @description： ParameterMap映射器
  */
 public class ParameterMapping {
 

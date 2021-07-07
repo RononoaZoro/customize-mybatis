@@ -190,6 +190,7 @@ public class XMLConfigBuilder extends BaseBuilder {
         if (context != null) {
             String type = context.getStringAttribute("type");
             // awful patch to keep backward compatibility
+            //糟糕的补丁以保持向后兼容性
             if ("VENDOR".equals(type)) {
                 type = "DB_VENDOR";
             }

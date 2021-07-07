@@ -220,18 +220,18 @@ public class XmlConfigBuilderTest {
 
   @Test
   public void shouldSuccessfullyLoadXMLConfigFileWithPropertiesUrl() throws Exception {
-    String resource = "org/apache/ibatis/builder/PropertiesUrlMapperConfig.xml";
+    String resource = "builder/PropertiesUrlMapperConfig.xml";
     try (InputStream inputStream = Resources.getResourceAsStream(resource)) {
       XMLConfigBuilder builder = new XMLConfigBuilder(inputStream);
       Configuration config = builder.parse();
-      assertThat(config.getVariables().get("driver").toString()).isEqualTo("com.luo.derby.jdbc.EmbeddedDriver");
+      assertThat(config.getVariables().get("driver").toString()).isEqualTo("org.apache.derby.jdbc.EmbeddedDriver");
       assertThat(config.getVariables().get("prop1").toString()).isEqualTo("bbbb");
     }
   }
 
   @Test
   public void parseIsTwice() throws Exception {
-    String resource = "org/apache/ibatis/builder/MinimalMapperConfig.xml";
+    String resource = "builder/MinimalMapperConfig.xml";
     try (InputStream inputStream = Resources.getResourceAsStream(resource)) {
       XMLConfigBuilder builder = new XMLConfigBuilder(inputStream);
       builder.parse();

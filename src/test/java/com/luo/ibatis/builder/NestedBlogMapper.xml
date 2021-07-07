@@ -22,7 +22,7 @@
 
 <mapper namespace="com.luo.ibatis.domain.blog.mappers.NestedBlogMapper">
 
-  <resultMap id="blogJoinedWithPostsAndAuthor" type="Blog">
+  <resultMap id="blogJoinedWithPostsAndAuthor" type="com.luo.ibatis.domain.blog.Blog">
     <id property="id" column="blog_id"/>
     <result property="title" column="blog_title"/>
     <association property="author" column="blog_author_id" javaType="com.luo.ibatis.domain.blog.Author">

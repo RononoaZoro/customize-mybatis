@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+
+       Copyright 2009-2016 the original author or authors.
+
+       Licensed under the Apache License, Version 2.0 (the "License");
+       you may not use this file except in compliance with the License.
+       You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+       Unless required by applicable law or agreed to in writing, software
+       distributed under the License is distributed on an "AS IS" BASIS,
+       WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+       See the License for the specific language governing permissions and
+       limitations under the License.
+
+-->
+<!DOCTYPE configuration
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+  <properties resource="databases/blog/blog-derby.properties"/>
+
+  <settings>
+    <setting name="cacheEnabled" value="true"/>
+    <setting name="lazyLoadingEnabled" value="false"/>
+    <setting name="multipleResultSetsEnabled" value="true"/>
+    <setting name="useColumnLabel" value="true"/>
+    <setting name="useGeneratedKeys" value="false"/>
+    <setting name="defaultExecutorType" value="SIMPLE"/>
+    <setting name="defaultStatementTimeout" value="25"/>
+  </settings>
+
+  <typeAliases>
+    <typeAlias alias="Author" type="com.luo.ibatis.domain.blog.Author"/>
+    <typeAlias alias="Blog" type="com.luo.ibatis.domain.blog.Blog"/>
+    <typeAlias alias="Comment" type="com.luo.ibatis.domain.blog.Comment"/>
+    <typeAlias alias="Post" type="com.luo.ibatis.domain.blog.Post"/>
+    <typeAlias alias="Section" type="com.luo.ibatis.domain.blog.Section"/>
+    <typeAlias alias="Tag" type="com.luo.ibatis.domain.blog.Tag"/>
+  </typeAliases>
+
+  <typeHandlers>
+    <typeHandler javaType="String" jdbcType="VARCHAR" handler="com.luo.ibatis.builder.CustomStringTypeHandler"/>
+  </typeHandlers>
+
+  <objectFactory type="com.luo.ibatis.builder.ExampleObjectFactory">
+    <property name="objectFactoryProperty" value="100"/>
+  </objectFactory>
+
+  <plugins>
+    <plugin interceptor="com.luo.ibatis.builder.ExamplePlugin">
+      <property name="pluginProperty" value="100"/>
+    </plugin>
+  </plugins>
+
+  <environments default="development">
+    <environment id="development">
+      <transactionManager type="JDBC">
+        <property name="" value=""/>
+      </transactionManager>
+      <dataSource type="UNPOOLED">
+        <property name="driver" value="${driver}"/>
+        <property name="url" value="${url}"/>
+        <property name="username" value="${username}"/>
+        <property name="password" value="${password}"/>
+      </dataSource>
+    </environment>
+  </environments>
+
+  <mappers>
+    <mapper resource="com/luo/ibatis/builder/AuthorMapper.xml"/>
+    <mapper resource="com/luo/ibatis/builder/BlogMapper.xml"/>
+    <mapper resource="com/luo/ibatis/builder/CachedAuthorMapper.xml"/>
+    <mapper resource="com/luo/ibatis/builder/PostMapper.xml"/>
+    <mapper resource="com/luo/ibatis/builder/NestedBlogMapper.xml"/>
+  </mappers>
+
+</configuration>

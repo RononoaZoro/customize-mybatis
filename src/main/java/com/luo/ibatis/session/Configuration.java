@@ -884,6 +884,7 @@ public class Configuration {
             return keyParts[keyParts.length - 1];
         }
 
+        //歧义
         protected static class Ambiguity {
             final private String subject;
 

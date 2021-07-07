@@ -167,6 +167,7 @@ public class XMLStatementBuilder extends BaseBuilder {
                 return false;
             }
             // skip this statement if there is a previous one with a not null databaseId
+            // 如果此前有一个不为空的 databaseId 的语句，则跳过此语句
             id = builderAssistant.applyCurrentNamespace(id, false);
             if (this.configuration.hasStatement(id, false)) {
                 MappedStatement previous = this.configuration.getMappedStatement(id, false); // issue #2

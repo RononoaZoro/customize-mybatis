@@ -13,7 +13,7 @@ import java.util.Set;
 /**
  * @author ：archer
  * @date ：Created in 2021/6/30 21:12
- * @description：
+ * @description： resultMap 中每一行 参数映射列表
  */
 public class ResultMapping {
 

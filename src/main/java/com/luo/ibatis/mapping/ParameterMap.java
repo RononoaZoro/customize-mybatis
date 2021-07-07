@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * @author ：archer
  * @date ：Created in 2021/6/30 21:09
- * @description：
+ * @description： 入参映射器
  */
 public class ParameterMap {
 

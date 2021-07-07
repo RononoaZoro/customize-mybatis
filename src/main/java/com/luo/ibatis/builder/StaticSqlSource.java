@@ -11,6 +11,7 @@ import java.util.List;
  * @author ：archer
  * @date ：Created in 2021/7/1 12:09
  * @description：
+ * Mapper解析后的sql内容 描述器
  */
 public class StaticSqlSource implements SqlSource {
     // Mapper解析后的sql内容

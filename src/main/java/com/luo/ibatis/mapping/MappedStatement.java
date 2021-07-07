@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * @author ：archer
  * @date ：Created in 2021/7/1 10:38
- * @description：
+ * @description： mapper.xml 中的 <insert|update|select|delete> 节点的完整描述类
  */
 public class MappedStatement {
 

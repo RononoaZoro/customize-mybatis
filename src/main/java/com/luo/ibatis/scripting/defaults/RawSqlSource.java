@@ -16,6 +16,7 @@ import java.util.HashMap;
  * @description：
  * Static SqlSource. It is faster than {@link DynamicSqlSource} because mappings are
  * calculated during startup.
+ * 静态 SqlSource。 它比 {@link DynamicSqlSource} 快，因为映射是启动时计算。
  */
 public class RawSqlSource implements SqlSource {
 

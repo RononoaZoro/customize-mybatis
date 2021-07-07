@@ -13,7 +13,7 @@ import java.util.Map;
 /**
  * @author ：archer
  * @date ：Created in 2021/7/1 16:57
- * @description：
+ * @description： 动态上下文
  */
 public class DynamicContext {
 
@@ -25,6 +25,7 @@ public class DynamicContext {
     }
 
     private final ContextMap bindings;
+    //保存sql的真正容器
     private final StringBuilder sqlBuilder = new StringBuilder();
     private int uniqueNumber = 0;
 
