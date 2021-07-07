@@ -11,3 +11,4 @@ gen
 # Project exclude paths
 /target/
 *.dat
+/ibderby/
