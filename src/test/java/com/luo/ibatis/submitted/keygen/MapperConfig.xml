@@ -35,6 +35,6 @@
 	</environments>
 
 	<mappers>
-		<mapper resource="com/luo/ibatis/submitted/keygen/CountryMapper.xml" />
+		<mapper resource="org/apache/ibatis/submitted/keygen/CountryMapper.xml" />
 	</mappers>
 </configuration>

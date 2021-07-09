@@ -11,7 +11,7 @@ import java.util.Map;
 /**
  * @author ：archer
  * @date ：Created in 2021/7/1 17:04
- * @description：
+ * @description： xml 动态sql 拼接表达式
  */
 public class ExpressionEvaluator {
 

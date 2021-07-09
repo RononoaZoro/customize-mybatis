@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * @author ：archer
  * @date ：Created in 2021/6/30 22:06
- * @description：
+ * @description： 缓存key
  */
 public class CacheKey implements Cloneable, Serializable {
 
@@ -25,6 +25,7 @@ public class CacheKey implements Cloneable, Serializable {
     private long checksum;
     private int count;
     // 8/21/2017 - Sonarlint flags this as needing to be marked transient.  While true if content is not serializable, this is not always true and thus should not be marked transient.
+    // Sonarlint 将此标记为需要标记为瞬态。 如果内容不可序列化，则为 true，但这并不总是正确的，因此不应标记为瞬态。
     private List<Object> updateList;
 
     public CacheKey() {

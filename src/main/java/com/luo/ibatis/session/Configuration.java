@@ -14,9 +14,7 @@ import com.luo.ibatis.cache.impl.PerpetualCache;
 import com.luo.ibatis.datasource.jndi.JndiDataSourceFactory;
 import com.luo.ibatis.datasource.pooled.PooledDataSourceFactory;
 import com.luo.ibatis.datasource.unpooled.UnpooledDataSourceFactory;
-import com.luo.ibatis.executor.CachingExecutor;
-import com.luo.ibatis.executor.Executor;
-import com.luo.ibatis.executor.SimpleExecutor;
+import com.luo.ibatis.executor.*;
 import com.luo.ibatis.executor.keygen.KeyGenerator;
 import com.luo.ibatis.executor.loader.ProxyFactory;
 import com.luo.ibatis.executor.loader.cglib.CglibProxyFactory;
@@ -336,6 +334,7 @@ public class Configuration {
     public void setLazyLoadTriggerMethods(Set<String> lazyLoadTriggerMethods) {
         this.lazyLoadTriggerMethods = lazyLoadTriggerMethods;
     }
+
     /**
      * @since 3.2.2
      */
@@ -598,13 +597,13 @@ public class Configuration {
         executorType = executorType == null ? ExecutorType.SIMPLE : executorType;
         Executor executor;
         // 根据executor类型创建对象的Executor对象
-//        if (ExecutorType.BATCH == executorType) {
-//            executor = new BatchExecutor(this, transaction);
-//        } else if (ExecutorType.REUSE == executorType) {
-//            executor = new ReuseExecutor(this, transaction);
-//        } else {
-        executor = new SimpleExecutor(this, transaction);
-//        }
+        if (ExecutorType.BATCH == executorType) {
+            executor = new BatchExecutor(this, transaction);
+        } else if (ExecutorType.REUSE == executorType) {
+            executor = new ReuseExecutor(this, transaction);
+        } else {
+            executor = new SimpleExecutor(this, transaction);
+        }
         // 如果cacheEnabled属性为ture，这使用CachingExecutor对上面创建的Executor进行装饰
         if (cacheEnabled) {
             executor = new CachingExecutor(executor);
@@ -702,6 +701,7 @@ public class Configuration {
         }
         return mappedStatements.containsKey(statementName);
     }
+
     public Collection<XMLStatementBuilder> getIncompleteStatements() {
         return incompleteStatements;
     }

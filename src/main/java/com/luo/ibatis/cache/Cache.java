@@ -9,6 +9,7 @@ import java.util.concurrent.locks.ReadWriteLock;
  * SPI for cache providers.
  *
  * One instance of cache will be created for each namespace.
+ * 每个namespace 都有缓存
  *
  * The cache implementation must have a constructor that receives the cache id as an String parameter.
  *
@@ -66,14 +67,15 @@ public interface Cache {
     /**
      * Optional. This method is not called by the core.
      *
-     * @return The number of elements stored in the cache (not its capacity).
+     * @return The number of elements stored in the cache (not its capacity（容量）).
      */
     int getSize();
 
     /**
      * Optional. As of 3.2.6 this method is no longer called by the core.
      *
-     * Any locking needed by the cache must be provided internally by the cache provider.
+     * Any locking needed by the cache must be provided internally（内部） by the cache provider.
+     * 锁需要缓存内部自己实现
      *
      * @return A ReadWriteLock
      */

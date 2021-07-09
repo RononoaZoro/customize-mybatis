@@ -50,6 +50,7 @@ public class WeakCacheTest {
     for (int i = 0; i < 1000; i++) {
       cache.putObject(i, i);
       Object value = cache.getObject(i);
+      System.out.println(value);
       assertTrue(value == null || value.equals(i));
     }
   }

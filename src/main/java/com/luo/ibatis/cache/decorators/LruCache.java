@@ -12,6 +12,7 @@ import java.util.concurrent.locks.ReadWriteLock;
  * @description：
  * Lru (least recently used) cache decorator
  * 最近最少使用缓存
+ * 最近没怎么使用的的缓存优先删除
  */
 public class LruCache implements Cache {
 

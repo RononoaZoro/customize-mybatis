@@ -15,6 +15,7 @@
  */
 package com.luo.ibatis.cache;
 
+import com.luo.ibatis.test.ognl.ADemo;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -87,6 +88,7 @@ public class CacheKeyTest {
   public void serializationExceptionTest() throws Exception {
     CacheKey cacheKey = new CacheKey();
     cacheKey.update(new Object());
+//    cacheKey.update(new ADemo());
     serialize(cacheKey);
   }
 

@@ -16,7 +16,7 @@
 //package com.luo.ibatis.executor;
 //
 //import com.luo.ibatis.transaction.Transaction;
-//import org.apache.ibatis.transaction.Transaction;
+//import com.luo.ibatis.transaction.Transaction;
 //import org.junit.Test;
 //
 //public class BatchExecutorTest extends BaseExecutorTest {

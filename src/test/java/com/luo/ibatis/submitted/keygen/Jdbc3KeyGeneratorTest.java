@@ -15,6 +15,11 @@
  */
 package com.luo.ibatis.submitted.keygen;
 
+import static org.junit.Assert.*;
+
+import java.io.Reader;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.luo.ibatis.BaseDataTest;
 import com.luo.ibatis.exceptions.PersistenceException;
@@ -25,14 +30,8 @@ import com.luo.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.io.Reader;
-import java.util.ArrayList;
-import java.util.List;
-
-import static com.googlecode.catchexception.apis.BDDCatchException.caughtException;
-import static com.googlecode.catchexception.apis.BDDCatchException.when;
+import static com.googlecode.catchexception.apis.BDDCatchException.*;
 import static org.assertj.core.api.BDDAssertions.then;
-import static org.junit.Assert.assertNotNull;
 
 /**
  * @author liuzh
@@ -50,7 +49,7 @@ public class Jdbc3KeyGeneratorTest {
 
     // populate in-memory database
     BaseDataTest.runScript(sqlSessionFactory.getConfiguration().getEnvironment().getDataSource(),
-            "com/luo/ibatis/submitted/keygen/CreateDB.sql");
+            "org/apache/ibatis/submitted/keygen/CreateDB.sql");
   }
 
   @Test

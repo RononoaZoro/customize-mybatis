@@ -3,7 +3,7 @@ package com.luo.ibatis.session;
 /**
  * @author ：archer
  * @date ：Created in 2021/7/1 11:01
- * @description：
+ * @description： 表中数据的列
  */
 public class RowBounds {
 

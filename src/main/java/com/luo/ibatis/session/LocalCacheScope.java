@@ -17,6 +17,7 @@ package com.luo.ibatis.session;
 
 /**
  * @author Eduardo Macarron
+ * 缓存作用域
  */
 public enum LocalCacheScope {
   SESSION,STATEMENT

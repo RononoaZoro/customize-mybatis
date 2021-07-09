@@ -9,7 +9,7 @@ import java.util.concurrent.locks.ReadWriteLock;
 /**
  * @author ：archer
  * @date ：Created in 2021/6/30 21:23
- * @description： 先进先出
+ * @description： 先进先出 先添加的缓存优先删除
  * FIFO (first in, first out) cache decorator
  */
 public class FifoCache implements Cache {

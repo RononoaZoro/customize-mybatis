@@ -24,7 +24,7 @@ import static org.junit.Assert.*;
 
 public class PerpetualCacheTest {
 
-  @Test
+  @Test//Demonstrate(证明)
   public void shouldDemonstrateHowAllObjectsAreKept() {
     Cache cache = new PerpetualCache("default");
     cache = new SynchronizedCache(cache);
@@ -55,7 +55,7 @@ public class PerpetualCacheTest {
     assertNull(cache.getObject(0));
   }
 
-  @Test
+  @Test//On Demand 一经请求
   public void shouldFlushAllItemsOnDemand() {
     Cache cache = new PerpetualCache("default");
     cache = new SynchronizedCache(cache);

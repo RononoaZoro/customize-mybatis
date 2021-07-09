@@ -340,6 +340,7 @@ public abstract class BaseExecutor implements Executor {
         this.wrapper = wrapper;
     }
 
+    //延迟加载
     private static class DeferredLoad {
 
         private final MetaObject resultObject;

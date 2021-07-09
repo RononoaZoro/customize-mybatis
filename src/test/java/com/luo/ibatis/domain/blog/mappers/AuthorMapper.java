@@ -18,7 +18,7 @@ package com.luo.ibatis.domain.blog.mappers;
 
 import com.luo.ibatis.annotations.Select;
 import com.luo.ibatis.domain.blog.Author;
-import sun.plugin2.main.server.ResultHandler;
+import com.luo.ibatis.session.ResultHandler;
 
 import java.util.*;
 

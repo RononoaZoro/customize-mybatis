@@ -128,6 +128,7 @@ public class DefaultSqlSession implements SqlSession {
             // 以MappedStatement对象作为参数，调用Executor的query（）方法
             return executor.query(ms, wrapCollection(parameter), rowBounds, Executor.NO_RESULT_HANDLER);
         } catch (Exception e) {
+            e.printStackTrace();
             throw ExceptionFactory.wrapException("Error querying database.  Cause: " + e, e);
         } finally {
             ErrorContext.instance().reset();
