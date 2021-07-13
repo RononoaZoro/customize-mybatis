@@ -29,7 +29,7 @@
           <arg column="author_password" javaType="java.lang.String"/>
           <arg column="author_email" javaType="java.lang.String"/>
           <arg column="author_bio" javaType="java.lang.String"/>
-          <arg column="favourite_section" javaType="org.apache.ibatis.domain.blog.Section"/>
+          <arg column="favourite_section" javaType="com.luo.ibatis.domain.blog.Section"/>
       </constructor>
   </resultMap>
 
